@@ -193,11 +193,7 @@ case "$IMAGE" in
 		echo "Image file not found."
 		exit 1
 		;;
-	/tmp/*)	;;
 	*)
-		v "Image not in /tmp, copying..."
-		cp -f "$IMAGE" /tmp/sysupgrade.img
-		IMAGE=/tmp/sysupgrade.img
 		;;
 esac
 

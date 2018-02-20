@@ -97,7 +97,12 @@ prepare: .config $(tools/stamp-compile) $(toolchain/stamp-compile)
 world: prepare $(target/stamp-compile) $(package/stamp-compile) $(package/stamp-install) $(target/stamp-install) FORCE
 	$(_SINGLE)$(SUBMAKE) -r package/index
 	$(_SINGLE)$(SUBMAKE) -r checksum
+	$(_SINGLE)$(SUBMAKE) -r tftp
 
-.PHONY: clean dirclean prereq prepare world package/symlinks package/symlinks-install package/symlinks-clean
+tftp: FORCE
+	ls -al bin/targets/ramips/rt305x/openwrt-ramips-rt305x-hlk-rm04-squashfs-sysupgrade.bin
+	scp bin/targets/ramips/rt305x/openwrt-ramips-rt305x-hlk-rm04-squashfs-sysupgrade.bin root@meadow:/var/lib/tftpboot/sysupgrade.bin
+
+.PHONY: clean dirclean prereq prepare world package/symlinks package/symlinks-install package/symlinks-clean tftp
 
 endif
